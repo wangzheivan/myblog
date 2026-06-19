@@ -33,7 +33,7 @@ fingerprintAlgorithm = "sha512"
   showRecentItems = 6
   showMoreLink = true
   showMoreLinkDest = "/posts/"
-  cardView = true
+  cardView = false
   cardViewScreenWidth = false
 
 [article]
@@ -62,11 +62,11 @@ fingerprintAlgorithm = "sha512"
 [list]
   showHero = false
   showBreadcrumbs = true
-  showSummary = true
+  showSummary = false
   showTableOfContents = false
-  showCards = true
+  showCards = false
   groupByYear = true
-  cardView = true
+  cardView = false
   cardViewScreenWidth = false
   constrainItemsWidth = false
 
