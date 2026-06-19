@@ -1,5 +1,5 @@
 ---
 title: "文章"
-description: "系统化整理 Linux、云原生、AI、DevOps 与编程实践。"
+description: "系统化整理 Linux、docker、k8s、rke2、rancher、neuvector、longhorn、o11y、AI。"
 ---
 

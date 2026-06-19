@@ -14,7 +14,6 @@ cover: "/images/tech-cover.svg"
 author: "ivan"
 ---
 
-# Rancher Server 一键安装脚本使用说明
 
 ## 一、文档说明
 
