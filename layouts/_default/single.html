@@ -1,0 +1,42 @@
+{{ define "main" }}
+<article class="article-shell" data-pagefind-body>
+  <header class="article-header">
+    {{ with .Params.categories }}<p class="eyebrow">{{ delimit . " / " }}</p>{{ end }}
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p>{{ . }}</p>{{ end }}
+    {{ range .Params.categories }}<span hidden data-pagefind-filter="category">{{ . }}</span>{{ end }}
+    {{ range .Params.tags }}<span hidden data-pagefind-filter="tag">{{ . }}</span>{{ end }}
+    {{ with .Params.series }}<span hidden data-pagefind-filter="series">{{ . }}</span>{{ end }}
+    {{ partial "article-meta.html" . }}
+    {{ $cover := .Params.cover | default site.Params.defaultCover }}
+    <img class="article-cover" src="{{ $cover }}" alt="">
+  </header>
+  <div class="article-layout">
+    {{ if .TableOfContents }}
+      <aside class="toc">
+        <strong>目录</strong>
+        {{ .TableOfContents }}
+      </aside>
+    {{ end }}
+    <div class="article-content">
+      {{ .Content }}
+      <div class="article-tags">
+        {{ range .Params.tags }}
+          <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}/">#{{ . }}</a>
+        {{ end }}
+      </div>
+      {{ if site.Params.giscusEnabled }}
+        <section class="comments-placeholder">
+          <h2>评论</h2>
+          <p>已预留 Giscus 评论区域。启用后在这里加载评论组件。</p>
+        </section>
+      {{ else }}
+        <section class="comments-placeholder">
+          <h2>评论预留</h2>
+          <p>第一阶段保留评论区域，后续可接入 Giscus。</p>
+        </section>
+      {{ end }}
+    </div>
+  </div>
+</article>
+{{ end }}

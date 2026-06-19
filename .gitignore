@@ -1,0 +1,8 @@
+public/
+resources/_gen/
+.hugo_build.lock
+node_modules/
+.pagefind/
+.cache/
+.DS_Store
+Thumbs.db

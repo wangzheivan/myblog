@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="{{ site.LanguageCode | default "zh-CN" }}">
+  <head>
+    {{ partial "head.html" . }}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到正文</a>
+    {{ partial "header.html" . }}
+    <main id="main">
+      {{ block "main" . }}{{ end }}
+    </main>
+    {{ partial "footer.html" . }}
+    {{ $main := resources.Get "js/main.js" | minify | fingerprint }}
+    <script src="{{ $main.RelPermalink }}" integrity="{{ $main.Data.Integrity }}" defer></script>
+  </body>
+</html>

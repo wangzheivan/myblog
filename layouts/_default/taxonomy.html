@@ -1,0 +1,12 @@
+{{ define "main" }}
+<section class="page-hero compact">
+  <p class="eyebrow">Topic</p>
+  <h1>{{ .Title }}</h1>
+</section>
+<section class="article-grid">
+  {{ range .Paginator.Pages }}
+    {{ partial "article-card.html" . }}
+  {{ end }}
+</section>
+{{ template "_internal/pagination.html" . }}
+{{ end }}

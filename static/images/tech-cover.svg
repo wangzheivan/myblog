@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="技术博客抽象封面">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f766e"/>
+      <stop offset="0.48" stop-color="#1d4ed8"/>
+      <stop offset="1" stop-color="#c2410c"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.24"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0.06"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="#0b1020"/>
+  <rect width="1200" height="800" fill="url(#bg)" opacity="0.8"/>
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.22">
+    <path d="M90 164h1010M90 298h1010M90 432h1010M90 566h1010"/>
+    <path d="M230 80v640M430 80v640M630 80v640M830 80v640M1030 80v640"/>
+  </g>
+  <g transform="translate(140 130)">
+    <rect width="420" height="280" rx="18" fill="url(#panel)" stroke="#fff" stroke-opacity="0.3"/>
+    <circle cx="48" cy="44" r="8" fill="#5eead4"/>
+    <circle cx="76" cy="44" r="8" fill="#fbbf24"/>
+    <circle cx="104" cy="44" r="8" fill="#fb7185"/>
+    <path d="M58 104h284M58 148h220M58 192h308M58 236h170" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-opacity="0.7"/>
+  </g>
+  <g transform="translate(620 190)" fill="url(#panel)" stroke="#fff" stroke-opacity="0.28">
+    <rect x="0" y="0" width="360" height="96" rx="16"/>
+    <rect x="80" y="150" width="360" height="96" rx="16"/>
+    <rect x="-34" y="300" width="360" height="96" rx="16"/>
+  </g>
+  <g stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-opacity="0.72">
+    <path d="M804 286v54M804 340h154M958 340v48"/>
+    <path d="M768 436v54M768 490h-64M958 436v54M958 490H704"/>
+  </g>
+</svg>

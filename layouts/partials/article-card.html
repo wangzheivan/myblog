@@ -1,0 +1,19 @@
+<article class="article-card" data-pagefind-ignore>
+  <a class="card-cover" href="{{ .RelPermalink }}" aria-label="{{ .Title }}">
+    {{ $cover := .Params.cover | default site.Params.defaultCover }}
+    <img src="{{ $cover }}" alt="" loading="lazy">
+  </a>
+  <div class="card-body">
+    <div class="meta-line">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format site.Params.dateFormat }}</time>
+      <span>{{ .ReadingTime }} 分钟阅读</span>
+    </div>
+    <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+    <p>{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 120 }}{{ end }}</p>
+    <div class="tag-row">
+      {{ range first 3 .Params.tags }}
+        <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}/">#{{ . }}</a>
+      {{ end }}
+    </div>
+  </div>
+</article>

@@ -1,0 +1,29 @@
+{{ define "main" }}
+<section class="page-hero compact search-hero">
+  <p class="eyebrow">Search</p>
+  <h1>{{ .Title }}</h1>
+  <p>{{ .Description }}</p>
+</section>
+<section class="search-panel">
+  <div id="search"></div>
+  <noscript>搜索功能需要启用 JavaScript。</noscript>
+</section>
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js" defer></script>
+<script>
+  window.addEventListener("DOMContentLoaded", function () {
+    if (window.PagefindUI) {
+      new PagefindUI({
+        element: "#search",
+        showSubResults: true,
+        showImages: false,
+        translations: {
+          placeholder: "搜索 Linux、Kubernetes、AI 等内容",
+          zero_results: "没有找到相关内容",
+          clear_search: "清除"
+        }
+      });
+    }
+  });
+</script>
+{{ end }}
