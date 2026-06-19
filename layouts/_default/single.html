@@ -14,39 +14,42 @@
     {{ end }}
 
     {{/* Header */}}
-    <header id="single_header" class="mt-5 max-w-4xl">
+    <header id="single_header" class="article-detail-header mx-auto mt-5 text-center">
       {{ if .Params.showBreadcrumbs | default (site.Params.article.showBreadcrumbs | default false) }}
-        {{ partial "breadcrumbs.html" . }}
+        <div class="flex justify-center">
+          {{ partial "breadcrumbs.html" . }}
+        </div>
       {{ end }}
       <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
         {{ .Title | emojify }}
       </h1>
-      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      <div class="mt-1 mb-10 flex flex-col items-center text-base text-neutral-500 dark:text-neutral-400 print:hidden">
         {{ partial "article-meta/basic.html" (dict "context" . "scope" "single") }}
       </div>
-      {{ if not (.Params.showAuthorBottom | default (site.Params.article.showAuthorBottom | default false)) }}
-        {{ template "SingleAuthor" . }}
-      {{ end }}
     </header>
 
     {{/* Body */}}
-    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row lg:items-start">
+    <section class="mt-0 max-w-full">
       {{ $enableToc := site.Params.article.showTableOfContents | default false }}
       {{ $enableToc = .Params.showTableOfContents | default $enableToc }}
       {{ $showToc := and $enableToc (in .TableOfContents "<ul") }}
       {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
-      {{ if $showToc }}
-        <div class="order-first px-0 lg:order-first lg:me-10 lg:pe-6 lg:w-64 lg:shrink-0">
-          <div class="toc ps-5 print:hidden lg:sticky {{ $topClass }}">
-            {{ partial "toc.html" . }}
+
+      <div class="article-detail-layout">
+        {{ if $showToc }}
+          <div class="article-detail-toc-column order-first px-0 print:hidden">
+            <div class="toc ps-5 lg:sticky {{ $topClass }}">
+              {{ partial "toc.html" . }}
+            </div>
           </div>
-        </div>
-      {{ end }}
+        {{ else }}
+          <div class="article-detail-toc-column hidden lg:block"></div>
+        {{ end }}
 
 
-      <div class="min-w-0 min-h-0 max-w-full">
+      <div class="article-detail-main min-w-0 min-h-0 max-w-full">
         {{ partial "series/series.html" . }}
-        <div class="article-content max-w-[88ch] mb-20">
+        <div class="article-detail-content article-content mb-20 prose dark:prose-invert">
           {{ .Content }}
           {{ $defaultReplyByEmail := site.Params.replyByEmail }}
           {{ $replyByEmail := default $defaultReplyByEmail .Params.replyByEmail }}
@@ -69,31 +72,30 @@
             </strong>
           {{ end }}
         </div>
-        {{ if (.Params.showAuthorBottom | default (site.Params.article.showAuthorBottom | default false)) }}
+        <div class="article-detail-author mb-10 print:hidden">
           {{ template "SingleAuthor" . }}
-        {{ end }}
+        </div>
         {{ partial "series/series-closed.html" . }}
         {{ partial "sharing-links.html" . }}
         {{ partial "related.html" . }}
+        <footer class="article-detail-footer pt-8 print:hidden">
+          {{ partial "article-pagination.html" . }}
+          {{ if .Params.showComments | default (site.Params.article.showComments | default false) }}
+            {{ if templates.Exists "partials/comments.html" }}
+              <div class="pt-3">
+                <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+                <div class="pt-3">
+                  {{ partial "comments.html" . }}
+                </div>
+              </div>
+            {{ else }}
+              {{ warnf "[BLOWFISH] Comments are enabled for %s but no comments partial exists." .File.Path }}
+            {{ end }}
+          {{ end }}
+        </footer>
+      </div>
       </div>
     </section>
-
-    {{/* Footer */}}
-    <footer class="pt-8 max-w-[88ch] print:hidden">
-      {{ partial "article-pagination.html" . }}
-      {{ if .Params.showComments | default (site.Params.article.showComments | default false) }}
-        {{ if templates.Exists "partials/comments.html" }}
-          <div class="pt-3">
-            <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
-            <div class="pt-3">
-              {{ partial "comments.html" . }}
-            </div>
-          </div>
-        {{ else }}
-          {{ warnf "[BLOWFISH] Comments are enabled for %s but no comments partial exists." .File.Path }}
-        {{ end }}
-      {{ end }}
-    </footer>
   </article>
 {{ end }}
 

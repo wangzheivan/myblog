@@ -1,0 +1,55 @@
+/* Article detail layout overrides for Blowfish. */
+.article-detail-header,
+.article-detail-main,
+.article-detail-content,
+.article-detail-author,
+.article-detail-footer {
+  max-width: 104ch;
+}
+
+.article-detail-header {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.article-detail-header .flex-row {
+  justify-content: center;
+}
+
+.article-detail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 2.5rem;
+}
+
+.article-detail-toc-column {
+  min-width: 0;
+}
+
+.article-detail-main {
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .article-detail-layout {
+    grid-template-columns: minmax(14rem, 18rem) minmax(0, 104ch) minmax(0, 1fr);
+    column-gap: 4.5rem;
+    align-items: start;
+  }
+
+  .article-detail-toc-column {
+    grid-column: 1;
+    width: 18rem;
+    max-width: 18rem;
+  }
+
+  .article-detail-main {
+    grid-column: 2;
+  }
+}
+
+@media (min-width: 1280px) {
+  .article-detail-layout {
+    column-gap: 5.5rem;
+  }
+}
