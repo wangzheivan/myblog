@@ -1,0 +1,53 @@
+baseURL = "https://blog.ivanwz.com/"
+languageCode = "zh-CN"
+defaultContentLanguage = "zh-cn"
+title = "云栈笔记"
+theme = "blowfish"
+
+enableRobotsTXT = true
+enableGitInfo = false
+hasCJKLanguage = true
+summaryLength = 120
+enableEmoji = true
+
+[pagination]
+  pagerSize = 9
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+  series = "series"
+
+[permalinks]
+  posts = "/posts/:sections/:slug/"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML", "RSS"]
+  term = ["HTML", "RSS"]
+
+[sitemap]
+  changefreq = "weekly"
+  filename = "sitemap.xml"
+  priority = 0.5
+
+[related]
+  threshold = 0
+  toLower = false
+
+  [[related.indices]]
+    name = "tags"
+    weight = 100
+
+  [[related.indices]]
+    name = "categories"
+    weight = 100
+
+  [[related.indices]]
+    name = "series"
+    weight = 50
+
+  [[related.indices]]
+    name = "date"
+    weight = 10

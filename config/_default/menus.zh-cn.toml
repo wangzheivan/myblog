@@ -1,0 +1,44 @@
+[[main]]
+  name = "首页"
+  pageRef = "/"
+  weight = 10
+
+[[main]]
+  name = "文章"
+  pageRef = "posts"
+  weight = 20
+
+[[main]]
+  name = "分类"
+  pageRef = "categories"
+  weight = 30
+
+[[main]]
+  name = "标签"
+  pageRef = "tags"
+  weight = 40
+
+[[main]]
+  name = "专题"
+  pageRef = "series"
+  weight = 50
+
+[[main]]
+  name = "关于"
+  pageRef = "pages/about"
+  weight = 60
+
+[[footer]]
+  name = "文章"
+  pageRef = "posts"
+  weight = 10
+
+[[footer]]
+  name = "分类"
+  pageRef = "categories"
+  weight = 20
+
+[[footer]]
+  name = "标签"
+  pageRef = "tags"
+  weight = 30

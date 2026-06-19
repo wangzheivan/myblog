@@ -1,6 +1,0 @@
-<div class="article-meta">
-  <time datetime="{{ .Date.Format "2006-01-02" }}">发布 {{ .Date.Format site.Params.dateFormat }}</time>
-  {{ with .Lastmod }}<span>更新 {{ .Format site.Params.dateFormat }}</span>{{ end }}
-  <span>{{ .ReadingTime }} 分钟阅读</span>
-  {{ with .Params.categories }}<span>{{ delimit . " / " }}</span>{{ end }}
-</div>

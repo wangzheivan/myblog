@@ -2,16 +2,12 @@
   "name": "cloud-stack-notes",
   "version": "0.1.0",
   "private": true,
-  "description": "Hugo powered Chinese technical blog with Pagefind local search.",
+  "description": "Hugo powered Chinese technical blog with the Blowfish theme.",
   "scripts": {
-    "dev": "hugo server --bind 0.0.0.0 --baseURL http://localhost:1313 --disableFastRender",
-    "build": "hugo --gc --minify && pagefind --site public --output-subdir pagefind",
+    "dev": "git submodule update --init --recursive && hugo server --bind 0.0.0.0 --baseURL http://localhost:1313 --disableFastRender",
+    "build": "git submodule update --init --recursive && hugo --gc --minify",
     "build:hugo": "hugo --gc --minify",
-    "index": "pagefind --site public --output-subdir pagefind",
-    "serve:public": "pagefind --site public --serve"
-  },
-  "devDependencies": {
-    "pagefind": "^1.3.0"
+    "serve": "git submodule update --init --recursive && hugo server --bind 0.0.0.0 --baseURL http://localhost:1313 --disableFastRender"
   },
   "engines": {
     "node": ">=20"
