@@ -2,12 +2,13 @@ baseURL = "https://example.com/"
 languageCode = "zh-CN"
 defaultContentLanguage = "zh-cn"
 title = "云栈笔记"
-theme = ""
 enableRobotsTXT = true
 enableGitInfo = false
 hasCJKLanguage = true
 summaryLength = 120
-paginate = 9
+
+[pagination]
+  pagerSize = 9
 
 [params]
   description = "专注 Linux、云原生、AI 与工程实践的中文技术博客。"
