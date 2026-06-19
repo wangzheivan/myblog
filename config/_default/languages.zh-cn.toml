@@ -2,7 +2,7 @@ disabled = false
 locale = "zh-cn"
 label = "简体中文"
 weight = 1
-title = "云栈笔记"
+title = "Ivan Blog"
 
 [params]
   displayName = "ZH-CN"
@@ -14,11 +14,11 @@ title = "云栈笔记"
   secondaryLogo = "favicon.svg"
 
 [params.author]
-  name = "站点作者"
+  name = "Ivan"
   email = "hello@example.com"
   headline = "Linux · Cloud Native · AI"
   bio = "记录 Linux、云原生、AI 与工程实践。"
   links = [
-    { github = "https://github.com/yourname" },
+    { github = "https://github.com/wangzheivan" },
     { email = "mailto:hello@example.com" }
   ]

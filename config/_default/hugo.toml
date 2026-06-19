@@ -1,7 +1,7 @@
 baseURL = "https://blog.ivanwz.com/"
 languageCode = "zh-CN"
 defaultContentLanguage = "zh-cn"
-title = "云栈笔记"
+title = "Ivan Blog"
 theme = "blowfish"
 
 enableRobotsTXT = true
