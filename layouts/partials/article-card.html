@@ -10,10 +10,12 @@
     </div>
     <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
     <p>{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 120 }}{{ end }}</p>
-    <div class="tag-row">
-      {{ range first 3 .Params.tags }}
-        <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}/">#{{ . }}</a>
-      {{ end }}
-    </div>
+    {{ with .Params.tags }}
+      <div class="tag-row">
+        {{ range first 3 . }}
+          <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}/">#{{ . }}</a>
+        {{ end }}
+      </div>
+    {{ end }}
   </div>
 </article>
