@@ -10,8 +10,8 @@ title = "云原生技术栈"
   rtl = false
   dateFormat = "2006-01-02"
   description = "专注 Linux、云原生、AI 与工程实践的中文技术博客。"
-  logo = "mylogo.png"
-  secondaryLogo = "mylogo.png"
+  logo = "logo-dark.png"
+  secondaryLogo = "logo-light.png"
 
 [params.author]
   name = "Ivan"
