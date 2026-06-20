@@ -1,5 +1,5 @@
 ---
-title: "RKE2通过Harbor Proxy Cache 部署指南"
+title: "RKE2R通过 Harbor镜像代理部署指南"
 date: 2026-06-19
 lastmod: 2026-06-19
 description: "RKE2通过Harbor Proxy Cache 部署指南"
@@ -13,9 +13,8 @@ cover: "/images/tech-cover.svg"
 author: "ivan"
 ---
 
-# RKE2 通过 Harbor Proxy Cache 部署指南
 
-## 环境信息
+# 环境信息
 
 | 项目         | 信息                  |
 | ------------ | --------------------- |
@@ -217,126 +216,26 @@ journalctl -u rke2-server -f
 
 ------
 
-# 四、获取Node Token
-
-Master节点执行：
-
-```bash
-cat /var/lib/rancher/rke2/server/node-token
-```
-
-记录输出内容。
-
-例如：
-
-```text
-K10f8b8f0d2a4b5a...
-```
-
-------
-
-# 五、安装Agent节点
-
-复制相同的：
-
-```bash
-/etc/rancher/rke2/registries.yaml
-```
-
-到所有Agent节点。
-
-安装：
-
-```bash
-curl -sfL https://get.rke2.io | \
-INSTALL_RKE2_VERSION=v1.34.7+rke2r1 \
-INSTALL_RKE2_TYPE=agent \
-sh -
-```
-
-配置：
-
-```bash
-mkdir -p /etc/rancher/rke2
-```
-
-创建：
-
-```bash
-vi /etc/rancher/rke2/config.yaml
-```
-
-内容：
-
-```yaml
-server: https://<MASTER-IP>:9345
-token: <NODE-TOKEN>
-```
-
-启动：
-
-```bash
-systemctl enable rke2-agent
-systemctl start rke2-agent
-```
-
-------
-
-# 六、验证镜像代理
-
+# 四、验证镜像代理
 测试拉取：
-
 ```bash
 /var/lib/rancher/rke2/bin/crictl pull \
 registry.rancher.com/rancher/rke2-runtime:v1.34.7-rke2r1
 ```
-
 成功后进入 Harbor：
-
 ```text
 Projects
  └── registry.rancher.com
 ```
-
 可以看到：
-
 ```text
 rancher/rke2-runtime
 ```
-
 镜像已经自动缓存。
 
 ------
 
-# 七、验证集群
-
-Master节点执行：
-
-```bash
-export KUBECONFIG=/etc/rancher/rke2/rke2.yaml
-```
-
-查看节点：
-
-```bash
-kubectl get nodes
-```
-
-查看系统Pod：
-
-```bash
-kubectl get pods -A
-```
-
-查看镜像：
-
-```bash
-crictl images
-```
-
-------
-
-# 八、后续扩展
+# 五、后续扩展
 
 当安装以下组件时：
 
@@ -349,7 +248,6 @@ crictl images
 - Cilium
 
 涉及：
-
 ```text
 docker.io
 quay.io
@@ -359,9 +257,7 @@ registry.rancher.com
 ```
 
 镜像会自动经过 Harbor Proxy Cache，无需再修改 Helm Chart 镜像地址。
-
 实现效果：
-
 Node
 ↓
 RKE2/containerd
@@ -370,6 +266,4 @@ Harbor Proxy Cache
 ↓
 Internet Registry
 
-```
 首次拉取缓存，后续全部走 Harbor 本地镜像。
-```

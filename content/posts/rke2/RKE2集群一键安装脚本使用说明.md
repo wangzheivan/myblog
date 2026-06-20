@@ -75,9 +75,7 @@ Projects
 ```text
 Proxy Cache
 ```
-
 创建：
-
 ```text
 docker.io
 registry.rancher.com
@@ -86,9 +84,7 @@ quay.io
 ghcr.io
 gcr.io
 ```
-
 并关联对应 Endpoint。
-
 ------
 
 # 二、一键安装脚本
@@ -245,42 +241,17 @@ echo "======================================="
 
 # 三、安装 Server 节点
 
-赋予权限：
+赋予权限安装：
 
 ```bash
 chmod +x install-rke2.sh
-```
-
-安装：
-
-```bash
 ./install-rke2.sh
 ```
-
 指定版本：
 
 ```bash
 RKE2_VERSION=v1.34.7+rke2r1 ./install-rke2.sh
 ```
-
-------
-
-# 四、获取 Token
-
-Master节点：
-
-```bash
-cat /var/lib/rancher/rke2/server/node-token
-```
-
-输出示例：
-
-```text
-K10c0f4d5a4e3......
-```
-
-记录备用。
-
 ------
 
 # 五、安装 Agent 节点
@@ -294,101 +265,3 @@ RKE2_TOKEN=K10c0f4d5a4e3...... \
 ./install-rke2.sh
 ```
 
-------
-
-# 六、验证集群
-
-配置环境变量：
-
-```bash
-export KUBECONFIG=/etc/rancher/rke2/rke2.yaml
-```
-
-查看节点：
-
-```bash
-kubectl get nodes
-```
-
-查看Pod：
-
-```bash
-kubectl get pods -A
-```
-
-------
-
-# 七、验证 Harbor 缓存
-
-测试拉取镜像：
-
-```bash
-crictl pull registry.rancher.com/rancher/rke2-runtime:v1.34.7-rke2r1
-```
-
-进入 Harbor：
-
-```text
-Projects
- └── registry.rancher.com
-```
-
-应看到：
-
-```text
-rancher/rke2-runtime
-```
-
-镜像已被缓存。
-
-------
-
-# 八、常用命令
-
-查看节点：
-
-```bash
-kubectl get nodes -o wide
-```
-
-查看Pod：
-
-```bash
-kubectl get pods -A
-```
-
-查看镜像：
-
-```bash
-crictl images
-```
-
-查看容器：
-
-```bash
-crictl ps -a
-```
-
-查看containerd镜像：
-
-```bash
-ctr -n k8s.io images ls
-```
-
-查看RKE2状态：
-
-```bash
-systemctl status rke2-server
-```
-
-查看日志：
-
-```bash
-journalctl -u rke2-server -f
-```
-
-Agent日志：
-
-```bash
-journalctl -u rke2-agent -f
-```

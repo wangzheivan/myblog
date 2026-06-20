@@ -1,8 +1,8 @@
 
 ---
-title: "Rancher Server 一键安装脚本使用说明"
+title: "Rancher Server一键安装脚本使用说明"
 date: 2026-06-19
-lastmod: 2026-06-19
+lastmod: 2026-06-20
 description: "测试环境方便通过脚本一键安装prime和primegc版本Rancher"
 slug: "rancher-install-shell"
 categories: ["rancher"]
@@ -15,50 +15,32 @@ author: "ivan"
 ---
 
 
-## 一、文档说明
+# 一、文档说明
 
 本文档用于说明 `install-rancher-server.sh` 的使用方法。
 
 脚本功能：
 
 -   自动安装 Helm
-
 -   自动配置 RKE2 Ingress Nginx Forward Header
-
 -   自动添加 Rancher Helm Repo
-
--   支持 Rancher Prime
-
+-   支持 Rancher Prim
 -   支持 Rancher Prime GC
-
 -   支持指定 Rancher 版本
-
 -   支持指定 Rancher 域名
-
 -   支持 Harbor 私有镜像仓库
-
 -   支持 Helm Upgrade/Install
 
 ---
 
 # 二、前置条件
-
 ## Kubernetes 集群
-
-已安装并运行：
-
-```text
-RKE2
-```
-
+已安装并运行RKE2
 验证：
-
 ```bash
 kubectl get nodes
 ```
-
 示例：
-
 ```text
 NAME      STATUS   ROLES
 node41    Ready    control-plane,etcd,master
@@ -67,52 +49,29 @@ node41    Ready    control-plane,etcd,master
 ---
 
 ## 域名准备
-
 确保 Rancher 域名已解析到负载均衡或 Ingress 地址。
-
 例如：
-
 ```text
 rancher.rancherlsp.com
 ```
-
 ---
 
 ## 外部 TLS
-
-当前环境使用：
-
-```text
-Nginx + TLS
-```
-
+当前环境使用Nginx + TLS
 Rancher 配置：
-
 ```yaml
 tls=external
 ```
-
 脚本会自动配置：
-
 ```yaml
 data:
   use-forwarded-headers: "true"
 ```
-
-对应：
-
-```bash
-kubectl get configmap \
--n kube-system \
-rke2-ingress-nginx-controller
-```
-
 ---
 
 # 三、脚本功能
 
 脚本执行过程：
-
 ```text
 安装 Helm
         ↓
@@ -148,8 +107,14 @@ rke2-ingress-nginx-controller
 
 ---
 
-# 五、保存脚本
+# 五、Rancher install 脚本
 
+## 拉取脚本命令
+```bash
+curl -fsSL https://raw.githubusercontent.com/wangzheivan/rancher-tools/refs/heads/main/rancher-install.sh -o rancher-install.sh
+chmod +x rancher-install.sh
+```
+## 脚本内容
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
@@ -314,19 +279,12 @@ echo
 echo "查看 Helm Release："
 echo "helm -n ${NAMESPACE} list"
 ```
-
-创建脚本：
+创建脚本赋予权限：
 
 ```bash
 vi install-rancher-server.sh
-```
-
-赋予权限：
-
-```bash
 chmod +x install-rancher-server.sh
 ```
-
 ---
 
 # 六、Prime GC 安装
@@ -336,9 +294,7 @@ chmod +x install-rancher-server.sh
 ```bash
 ./install-rancher-server.sh
 ```
-
 等价于：
-
 ```bash
 RANCHER_EDITION=prime-gc \
 RANCHER_VERSION=2.13.0 \
@@ -352,20 +308,9 @@ MY_HOSTNAME=rancher.rancherlsp.com \
 ```bash
 helm repo add rancher-prime \
 https://charts.rancher.cn/2.13-prime/latest
-```
-
-以及：
-
-```bash
 helm upgrade --install rancher \
 rancher-prime/rancher
-```
-
-并自动配置：
-
-```yaml
 rancherImage=harbor.rancherlsp.com/prime/rancher
-
 systemDefaultRegistry=harbor.rancherlsp.com
 ```
 
@@ -387,50 +332,17 @@ RANCHER_VERSION=2.13.0 \
 ```bash
 helm repo add rancher-prime \
 https://charts.rancher.com/server-charts/prime
-```
-
-并执行：
-
-```bash
 helm upgrade --install rancher
 ```
-
 Prime 版本不会配置：
-
 ```yaml
 rancherImage
 systemDefaultRegistry
 ```
-
 ---
 
-# 八、安装 Rancher 2.12 Prime GC
 
-例如安装：
-
-```text
-2.12.3
-```
-
-执行：
-
-```bash
-RANCHER_EDITION=prime-gc \
-RANCHER_GC_MINOR_VERSION=2.12 \
-RANCHER_VERSION=2.12.3 \
-MY_HOSTNAME=rancher.rancherlsp.com \
-./install-rancher-server.sh
-```
-
-脚本自动使用：
-
-```bash
-https://charts.rancher.cn/2.12-prime/latest
-```
-
----
-
-# 九、自定义 Harbor
+# 八、自定义 Harbor
 
 默认：
 
@@ -446,193 +358,32 @@ PRIVATE_REGISTRY=harbor.example.com \
 ```
 
 同时会自动更新：
-
 ```yaml
 systemDefaultRegistry
 ```
-
 以及：
-
 ```yaml
 rancherImage
 ```
-
 ---
 
 # 十、自定义管理员密码
 
-默认：
-
-```text
-Rancher12345
-```
-
 修改：
-
 ```bash
 BOOTSTRAP_PASSWORD='MyPassword@123' \
 ./install-rancher-server.sh
 ```
-
 ---
-
-# 十一、查看部署状态
-
-查看 Helm Release：
-
-```bash
-helm -n cattle-system list
-```
-
-查看 Pod：
-
-```bash
-kubectl -n cattle-system get pods
-```
-
-查看 Deployment：
-
-```bash
-kubectl -n cattle-system get deploy
-```
-
-查看 Service：
-
-```bash
-kubectl -n cattle-system get svc
-```
-
-查看 Ingress：
-
-```bash
-kubectl -n cattle-system get ingress
-```
-
----
-
-# 十二、升级 Rancher
-
-例如升级：
-
-```text
-2.13.1
-```
-
-执行：
-
-```bash
-RANCHER_VERSION=2.13.1 \
-./install-rancher-server.sh
-```
-
-脚本自动执行：
-
-```bash
-helm upgrade
-```
-
-不会重复安装。
-
----
-
-# 十三、卸载 Rancher
+# 十一、卸载 Rancher
 
 卸载 Release：
-
 ```bash
 helm uninstall rancher -n cattle-system
 ```
-
 删除 Namespace：
-
 ```bash
 kubectl delete ns cattle-system
 ```
 
----
 
-# 十四、常见问题
-
-## 1\. Helm Repo 无法访问
-
-测试：
-
-```bash
-helm repo list
-```
-
-更新：
-
-```bash
-helm repo update
-```
-
----
-
-## 2\. Rancher Pod 无法启动
-
-查看：
-
-```bash
-kubectl -n cattle-system describe pod <pod-name>
-```
-
-日志：
-
-```bash
-kubectl -n cattle-system logs -f <pod-name>
-```
-
----
-
-## 3\. 域名无法访问
-
-检查：
-
-```bash
-kubectl -n cattle-system get ingress
-```
-
-检查 DNS：
-
-```bash
-nslookup rancher.rancherlsp.com
-```
-
----
-
-## 4\. 外部 TLS 出现重定向异常
-
-确认：
-
-```bash
-kubectl get configmap \
--n kube-system \
-rke2-ingress-nginx-controller \
--o yaml
-```
-
-存在：
-
-```yaml
-data:
-  use-forwarded-headers: "true"
-```
-
-如果缺失：
-
-```bash
-kubectl patch configmap \
-rke2-ingress-nginx-controller \
--n kube-system \
---type merge \
--p '{"data":{"use-forwarded-headers":"true"}}'
-```
-
-重启 Ingress：
-
-```bash
-kubectl rollout restart deployment \
-rke2-ingress-nginx-controller \
--n kube-system
-```
