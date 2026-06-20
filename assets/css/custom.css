@@ -60,10 +60,11 @@
   .article-detail-layout {
     grid-template-columns: minmax(14rem, 15.5rem) minmax(0, 1fr);
     column-gap: 3.75rem;
-    align-items: start;
+    align-items: stretch;
   }
 
   .article-detail-toc-column {
+    align-self: stretch;
     grid-column: 1;
     width: 15.5rem;
     max-width: 15.5rem;
