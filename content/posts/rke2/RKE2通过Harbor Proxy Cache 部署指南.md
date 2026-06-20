@@ -115,7 +115,7 @@ mkdir -p /etc/rancher/rke2
 
 ------
 
-### 创建 registries.yaml
+创建 registries.yaml
 
 文件：
 

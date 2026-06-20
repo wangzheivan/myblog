@@ -15,7 +15,7 @@ author: "ivan"
 ---
 
 
-# 一、文档说明
+## 一、文档说明
 
 本文档用于说明 `install-rancher-server.sh` 的使用方法。
 
@@ -33,8 +33,8 @@ author: "ivan"
 
 ---
 
-# 二、前置条件
-## Kubernetes 集群
+## 二、前置条件
+### Kubernetes 集群
 已安装并运行RKE2
 验证：
 ```bash
@@ -48,7 +48,7 @@ node41    Ready    control-plane,etcd,master
 
 ---
 
-## 域名准备
+### 域名准备
 确保 Rancher 域名已解析到负载均衡或 Ingress 地址。
 例如：
 ```text
@@ -56,7 +56,7 @@ rancher.rancherlsp.com
 ```
 ---
 
-## 外部 TLS
+### 外部 TLS
 当前环境使用Nginx + TLS
 Rancher 配置：
 ```yaml
@@ -69,7 +69,7 @@ data:
 ```
 ---
 
-# 三、脚本功能
+## 三、脚本功能
 
 脚本执行过程：
 ```text
@@ -88,7 +88,7 @@ data:
 
 ---
 
-# 四、默认参数
+## 四、默认参数
 
 | 参数                     | 默认值                              |
 | ------------------------ | ----------------------------------- |
@@ -107,14 +107,14 @@ data:
 
 ---
 
-# 五、Rancher install 脚本
+## 五、Rancher install 脚本
 
-## 拉取脚本命令
+### 拉取脚本命令
 ```bash
 curl -fsSL https://raw.githubusercontent.com/wangzheivan/rancher-tools/refs/heads/main/rancher-install.sh -o rancher-install.sh
 chmod +x rancher-install.sh
 ```
-## 脚本内容
+### 脚本内容
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
@@ -287,7 +287,7 @@ chmod +x install-rancher-server.sh
 ```
 ---
 
-# 六、Prime GC 安装
+## 六、Prime GC 安装
 
 默认执行：
 
@@ -316,7 +316,7 @@ systemDefaultRegistry=harbor.rancherlsp.com
 
 ---
 
-# 七、Prime 安装
+## 七、Prime 安装
 
 执行：
 
@@ -342,7 +342,7 @@ systemDefaultRegistry
 ---
 
 
-# 八、自定义 Harbor
+## 八、自定义 Harbor
 
 默认：
 
@@ -367,7 +367,7 @@ rancherImage
 ```
 ---
 
-# 十、自定义管理员密码
+## 九、自定义管理员密码
 
 修改：
 ```bash
@@ -375,7 +375,7 @@ BOOTSTRAP_PASSWORD='MyPassword@123' \
 ./install-rancher-server.sh
 ```
 ---
-# 十一、卸载 Rancher
+## 十、卸载 Rancher
 
 卸载 Release：
 ```bash

@@ -31,9 +31,9 @@ author: "ivan"
 
 ------
 
-# 一、Harbor准备工作
+## 一、Harbor准备工作
 
-## 1、创建Registry Endpoint
+### 1、创建Registry Endpoint
 
 进入：
 
@@ -61,7 +61,7 @@ Healthy
 
 ------
 
-## 2、创建 Proxy Cache 项目
+### 2、创建 Proxy Cache 项目
 
 进入：
 
@@ -85,9 +85,10 @@ ghcr.io
 gcr.io
 ```
 并关联对应 Endpoint。
+
 ------
 
-# 二、一键安装脚本
+## 二、一键安装脚本
 
 保存如下脚本：
 
@@ -239,7 +240,7 @@ echo "======================================="
 
 ------
 
-# 三、安装 Server 节点
+## 三、安装 Server 节点
 
 赋予权限安装：
 
@@ -254,7 +255,7 @@ RKE2_VERSION=v1.34.7+rke2r1 ./install-rke2.sh
 ```
 ------
 
-# 五、安装 Agent 节点
+## 四、安装 Agent 节点
 
 执行：
 

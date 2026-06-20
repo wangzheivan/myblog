@@ -130,7 +130,6 @@ export DST_REGISTRY_PASSWORD="<Harbor 管理员密码>"
 helm repo add suse-observability https://charts.rancher.com/server-charts/prime/suse-observability
 helm repo update
 kubectl create namespace suse-observability
-```
 如 namespace 已存在，可忽略相关提示。
 ---
 
@@ -163,7 +162,7 @@ kubectl -n suse-observability get secret suse-o11y-tls
 
 ---
 
-## 8. 准备 Helm Values
+## 7. 准备 Helm Values
 
 创建 `values.yaml` 文件：
 
@@ -225,7 +224,7 @@ ingress:
 
 ---
 
-## 9. 执行 Helm 安装
+## 8. 执行 Helm 安装
 
 执行以下命令安装 SUSE Observability：
 
@@ -242,7 +241,7 @@ helm upgrade \
 
 ---
 
-## 10. 安装流程汇总
+## 9. 安装流程汇总
 
 ```bash
 # 1. 准备 Longhorn
