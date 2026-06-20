@@ -1,5 +1,5 @@
 ---
-title: "RKE2R通过 Harbor镜像代理部署指南"
+title: "RKE2通过 Harbor镜像代理部署指南"
 date: 2026-06-19
 lastmod: 2026-06-19
 description: "RKE2通过Harbor Proxy Cache 部署指南"
@@ -14,7 +14,7 @@ author: "ivan"
 ---
 
 
-# 环境信息
+## 环境信息
 
 | 项目         | 信息                  |
 | ------------ | --------------------- |
@@ -26,9 +26,9 @@ author: "ivan"
 
 ------
 
-# 一、Harbor配置
+## 一、Harbor配置
 
-## 1. 创建Registry Endpoint
+### 创建Registry Endpoint
 
 进入：
 
@@ -56,7 +56,7 @@ Healthy
 
 ------
 
-## 2. 创建 Proxy Cache 项目
+### 创建 Proxy Cache 项目
 
 进入：
 
@@ -105,7 +105,7 @@ Proxy Cache
 
 ------
 
-# 二、RKE2节点配置
+## 二、RKE2节点配置
 
 创建目录：
 
@@ -115,7 +115,7 @@ mkdir -p /etc/rancher/rke2
 
 ------
 
-## 创建 registries.yaml
+### 创建 registries.yaml
 
 文件：
 
@@ -184,7 +184,7 @@ configs:
 
 ------
 
-# 三、安装RKE2 Server
+## 三、安装RKE2 Server
 
 执行：
 
@@ -216,7 +216,7 @@ journalctl -u rke2-server -f
 
 ------
 
-# 四、验证镜像代理
+## 四、验证镜像代理
 测试拉取：
 ```bash
 /var/lib/rancher/rke2/bin/crictl pull \
@@ -235,7 +235,7 @@ rancher/rke2-runtime
 
 ------
 
-# 五、后续扩展
+## 五、后续扩展
 
 当安装以下组件时：
 
