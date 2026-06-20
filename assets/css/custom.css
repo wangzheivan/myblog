@@ -73,9 +73,13 @@
   .article-detail-toc {
     position: sticky;
     top: 7rem;
-    max-height: calc(100vh - 8rem);
-    overflow-x: hidden;
-    overflow-y: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .article-detail-toc #TOCView {
+    max-height: none;
+    overflow: visible;
   }
 
   .article-detail-main {
