@@ -33,12 +33,12 @@
       {{ $enableToc := site.Params.article.showTableOfContents | default false }}
       {{ $enableToc = .Params.showTableOfContents | default $enableToc }}
       {{ $showToc := and $enableToc (in .TableOfContents "<ul") }}
-      {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
 
       <div class="article-detail-layout">
         {{ if $showToc }}
           <div class="article-detail-toc-column order-first px-0 print:hidden">
-            <div class="toc ps-5 lg:sticky {{ $topClass }}">
+            <div class="article-detail-toc toc ps-5">
+              <div class="article-detail-toc-title">文章目录</div>
               {{ partial "toc.html" . }}
             </div>
           </div>

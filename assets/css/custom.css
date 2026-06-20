@@ -1,15 +1,8 @@
 /* Article detail layout overrides for Blowfish. */
-.article-detail-header,
-.article-detail-main,
-.article-detail-content,
-.article-detail-author,
-.article-detail-footer {
-  max-width: 104ch;
-}
-
 .article-detail-header {
   margin-left: auto;
   margin-right: auto;
+  max-width: 104ch;
 }
 
 .article-detail-header .flex-row {
@@ -26,21 +19,62 @@
   min-width: 0;
 }
 
+.article-detail-toc-title {
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  opacity: 0.82;
+}
+
+.article-detail-toc {
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.article-detail-toc a {
+  opacity: 0.66;
+}
+
+.article-detail-toc a:hover,
+.article-detail-toc a:focus,
+.article-detail-toc .active,
+.article-detail-toc [aria-current="true"] {
+  opacity: 1;
+}
+
 .article-detail-main {
+  max-width: none;
   min-width: 0;
+  width: 100%;
+}
+
+.article-detail-content,
+.article-detail-author,
+.article-detail-footer {
+  max-width: none;
+  width: 100%;
 }
 
 @media (min-width: 1024px) {
   .article-detail-layout {
-    grid-template-columns: minmax(14rem, 18rem) minmax(0, 104ch) minmax(0, 1fr);
-    column-gap: 4.5rem;
+    grid-template-columns: minmax(14rem, 15.5rem) minmax(0, 1fr);
+    column-gap: 3.75rem;
     align-items: start;
   }
 
   .article-detail-toc-column {
     grid-column: 1;
-    width: 18rem;
-    max-width: 18rem;
+    width: 15.5rem;
+    max-width: 15.5rem;
+  }
+
+  .article-detail-toc {
+    position: sticky;
+    top: 7rem;
+    max-height: calc(100vh - 8rem);
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   .article-detail-main {
@@ -50,6 +84,6 @@
 
 @media (min-width: 1280px) {
   .article-detail-layout {
-    column-gap: 5.5rem;
+    column-gap: 4rem;
   }
 }
