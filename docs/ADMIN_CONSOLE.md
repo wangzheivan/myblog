@@ -1,61 +1,165 @@
-# 博客后台管理说明
+# 博客后台正式部署指南
 
-本分支新增一个轻量博客后台，目标是在不影响 `main` 正式站点的前提下，通过网页管理 Hugo 内容。
+本文档说明如何把后台管理功能部署到正式博客域名：
 
-## 架构
+```text
+后台页面：https://blog.ivanwz.com/admin/
+后台 API：https://blog.ivanwz.com/api/*
+```
 
-- 管理前端：`admin/`
-- 构建脚本：`scripts/build-admin.mjs`
-- Worker API：`worker/src/index.js`
-- Worker 示例配置：`worker/wrangler.toml.example`
-- 内容写入：GitHub API 提交到 `feature/admin-console`
+后台页面由 Cloudflare Pages 发布，后台 API 由 Cloudflare Worker 提供。后台通过 GitHub OAuth 登录，只允许 `wangzheivan` 账号访问；保存文章、上传图片、修改配置时，Worker 会通过 GitHub API 直接提交到 `main` 分支。
 
-构建时会先生成 Hugo 站点，然后把 `admin/` 复制到 `public/admin/`。
+## 1. 推送 main 分支代码
+
+在本地确认当前分支是 `main`：
+
+```bash
+git branch --show-current
+```
+
+构建检查：
 
 ```bash
 npm run build
 ```
 
-## GitHub OAuth
+提交并推送：
 
-在 GitHub 创建 OAuth App：
-
-- Homepage URL：`https://blog.ivanwz.com`
-- Authorization callback URL：`https://blog.ivanwz.com/api/auth/callback`
-
-预览环境测试时，callback URL 需要换成 Cloudflare Pages Preview 域名，例如：
-
-```text
-https://<preview-domain>/api/auth/callback
+```bash
+git status
+git add .
+git commit -m "add admin console to main"
+git push origin main
 ```
 
-## GitHub Token
-
-创建 fine-grained token，并只授权 `wangzheivan/myblog`：
-
-- Repository permissions：Contents Read and write
-- Metadata Read-only
-
-第一阶段 Worker 写入目标分支：
+Cloudflare Pages 会自动部署。部署成功后，先访问：
 
 ```text
-feature/admin-console
+https://blog.ivanwz.com/admin/
 ```
 
-## Worker 环境变量
+此时页面应该能打开，但 API 和登录还不能用，因为 Worker 还没有配置。
 
-复制 `worker/wrangler.toml.example` 为 `worker/wrangler.toml`，不要提交真实密钥。
+## 2. 创建 GitHub OAuth App
 
-普通变量：
+进入 GitHub：
+
+```text
+GitHub -> Settings -> Developer settings -> OAuth Apps -> New OAuth App
+```
+
+填写：
+
+```text
+Application name: Ivan Blog Admin
+Homepage URL: https://blog.ivanwz.com
+Authorization callback URL: https://blog.ivanwz.com/api/auth/callback
+```
+
+创建后记录两项：
+
+```text
+Client ID
+Client Secret
+```
+
+`Client Secret` 只显示一次，请保存到安全位置，后面会写入 Cloudflare Worker Secret。
+
+## 3. 创建 GitHub Fine-Grained Token
+
+进入 GitHub：
+
+```text
+GitHub -> Settings -> Developer settings -> Personal access tokens -> Fine-grained tokens -> Generate new token
+```
+
+建议配置：
+
+```text
+Token name: Ivan Blog Admin Worker
+Resource owner: wangzheivan
+Repository access: Only select repositories
+Selected repository: wangzheivan/myblog
+Expiration: 自行选择，建议先 90 天或 180 天
+```
+
+Repository permissions：
+
+```text
+Contents: Read and write
+Metadata: Read-only
+```
+
+生成后复制 token，后面会作为 Worker Secret：
+
+```text
+GITHUB_TOKEN
+```
+
+## 4. 创建 Cloudflare Worker
+
+进入 Cloudflare Dashboard：
+
+```text
+Workers & Pages -> Create application -> Create Worker
+```
+
+Worker 名称建议：
+
+```text
+ivan-blog-admin-api
+```
+
+创建完成后，可以选择两种部署方式。
+
+方式 A：用 Wrangler 部署，推荐：
+
+```bash
+cd worker
+copy wrangler.toml.example wrangler.toml
+wrangler deploy
+```
+
+方式 B：在 Cloudflare 网页编辑器中粘贴 `worker/src/index.js` 内容。
+
+推荐方式 A，因为后续更新 Worker 更方便。
+
+## 5. 配置 Worker 变量
+
+### 5.1 普通变量
+
+如果使用 `wrangler.toml`，确认内容类似：
 
 ```toml
+name = "ivan-blog-admin-api"
+main = "src/index.js"
+compatibility_date = "2026-06-22"
+
+[vars]
 GITHUB_OWNER = "wangzheivan"
 GITHUB_REPO = "myblog"
-GITHUB_TARGET_BRANCH = "feature/admin-console"
+GITHUB_TARGET_BRANCH = "main"
 ALLOWED_GITHUB_LOGIN = "wangzheivan"
 ```
 
-Secret：
+如果在 Cloudflare 网页配置：
+
+```text
+Worker -> Settings -> Variables and Secrets -> Add variable
+```
+
+添加：
+
+```text
+GITHUB_OWNER=wangzheivan
+GITHUB_REPO=myblog
+GITHUB_TARGET_BRANCH=main
+ALLOWED_GITHUB_LOGIN=wangzheivan
+```
+
+### 5.2 Secret
+
+使用 Wrangler：
 
 ```bash
 cd worker
@@ -65,39 +169,135 @@ wrangler secret put GITHUB_OAUTH_CLIENT_SECRET
 wrangler secret put SESSION_SECRET
 ```
 
-`SESSION_SECRET` 建议使用 32 位以上随机字符串。
+填写关系：
 
-## Cloudflare 路由
+```text
+GITHUB_TOKEN = GitHub Fine-Grained Token
+GITHUB_OAUTH_CLIENT_ID = GitHub OAuth App Client ID
+GITHUB_OAUTH_CLIENT_SECRET = GitHub OAuth App Client Secret
+SESSION_SECRET = 32 位以上随机字符串
+```
 
-推荐把 Worker 绑定到同域名 `/api/*`：
+如果在 Cloudflare 网页配置：
+
+```text
+Worker -> Settings -> Variables and Secrets -> Add secret
+```
+
+逐个添加上面的四项。
+
+## 6. 绑定 Worker 路由
+
+进入 Cloudflare：
+
+```text
+Workers & Pages -> ivan-blog-admin-api -> Settings -> Domains & Routes -> Add route
+```
+
+添加路由：
 
 ```text
 blog.ivanwz.com/api/*
 ```
 
-这样后台页面可通过相对路径访问 API：
+Zone 选择你的域名：
+
+```text
+ivanwz.com
+```
+
+保存后，访问：
+
+```text
+https://blog.ivanwz.com/api/me
+```
+
+未登录时应返回：
+
+```json
+{"error":"Unauthorized"}
+```
+
+如果返回 404 或 Cloudflare 错误，说明 Worker 路由没有绑定成功。
+
+## 7. 验证后台登录
+
+访问：
 
 ```text
 https://blog.ivanwz.com/admin/
 ```
 
-## 后台能力
+点击 GitHub 登录。
 
-当前第一版支持：
+正常流程：
 
-- 上传 Markdown 并保存到 `content/posts/<category>/<slug>.md`
-- 编辑文章 Front Matter 和正文
-- 上传图片到 `static/uploads/YYYY/MM/`
-- 管理 `content/pages/about.md`
-- 管理部分站点信息和 Blowfish 常用 UI 配置
+1. 跳转到 GitHub 授权页面。
+2. 授权后跳回 `https://blog.ivanwz.com/admin/`。
+3. 右上角显示已登录账号。
 
-所有保存动作都会生成 GitHub commit，commit message 使用 `admin:` 前缀。
+如果出现 OAuth callback 错误，重点检查 GitHub OAuth App 的 callback URL 是否是：
 
-## 合并到 main 前
+```text
+https://blog.ivanwz.com/api/auth/callback
+```
 
-确认后台可用后：
+## 8. 验证内容写入
 
-1. 在 Cloudflare Pages Preview 验证后台读写。
-2. 确认 `main` 正式站点不受影响。
-3. 合并 `feature/admin-console` 到 `main`。
-4. 将 Worker 的 `GITHUB_TARGET_BRANCH` 改为 `main`。
+登录后台后测试：
+
+1. 新建一篇草稿文章。
+2. 点击保存。
+3. 打开 GitHub 仓库 `wangzheivan/myblog`。
+4. 确认 `main` 分支出现 `admin:` 开头的 commit。
+5. 确认文章文件出现在：
+
+```text
+content/posts/<category>/<slug>.md
+```
+
+Cloudflare Pages 会自动重新部署。
+
+## 9. 验证图片上传
+
+后台上传一张图片后，GitHub 中应出现：
+
+```text
+static/uploads/YYYY/MM/<filename>
+```
+
+后台会生成 Markdown 图片路径，例如：
+
+```markdown
+![image](/uploads/2026/06/example.png)
+```
+
+复制后可粘贴到文章正文中。
+
+## 10. 回退方法
+
+如果后台功能影响前台博客，可以回退后台提交。
+
+查看提交：
+
+```bash
+git log --oneline
+```
+
+回退指定提交：
+
+```bash
+git revert <commit-sha>
+git push origin main
+```
+
+Cloudflare Pages 会重新部署，恢复到回退后的版本。
+
+## 11. 注意事项
+
+- 不要提交 `worker/wrangler.toml`。
+- 不要提交 `worker/.dev.vars`。
+- 不要把 GitHub Token、OAuth Secret、Session Secret 写入仓库。
+- `GITHUB_TARGET_BRANCH` 当前应为 `main`。
+- 后台写入的是 GitHub 仓库内容，不是数据库。
+- 所有后台保存动作都会生成 GitHub commit，方便审计和回退。

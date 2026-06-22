@@ -5,7 +5,7 @@ compatibility_date = "2026-06-22"
 [vars]
 GITHUB_OWNER = "wangzheivan"
 GITHUB_REPO = "myblog"
-GITHUB_TARGET_BRANCH = "feature/admin-console"
+GITHUB_TARGET_BRANCH = "main"
 ALLOWED_GITHUB_LOGIN = "wangzheivan"
 
 # Configure secrets with wrangler:

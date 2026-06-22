@@ -127,7 +127,7 @@ async function github(env, path, init = {}) {
 }
 
 function normalizeBranch(env) {
-  return env.GITHUB_TARGET_BRANCH || "feature/admin-console";
+  return env.GITHUB_TARGET_BRANCH || "main";
 }
 
 async function getFile(env, path) {
