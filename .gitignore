@@ -6,5 +6,4 @@ node_modules/
 .cache/
 .DS_Store
 Thumbs.db
-worker/wrangler.toml
 worker/.dev.vars
