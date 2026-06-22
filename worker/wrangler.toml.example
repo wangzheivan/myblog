@@ -1,0 +1,15 @@
+name = "ivan-blog-admin-api"
+main = "src/index.js"
+compatibility_date = "2026-06-22"
+
+[vars]
+GITHUB_OWNER = "wangzheivan"
+GITHUB_REPO = "myblog"
+GITHUB_TARGET_BRANCH = "feature/admin-console"
+ALLOWED_GITHUB_LOGIN = "wangzheivan"
+
+# Configure secrets with wrangler:
+# wrangler secret put GITHUB_TOKEN
+# wrangler secret put GITHUB_OAUTH_CLIENT_ID
+# wrangler secret put GITHUB_OAUTH_CLIENT_SECRET
+# wrangler secret put SESSION_SECRET

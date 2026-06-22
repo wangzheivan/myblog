@@ -5,7 +5,8 @@
   "description": "Hugo powered Chinese technical blog with the Blowfish theme.",
   "scripts": {
     "dev": "git submodule update --init --recursive && hugo server --bind 0.0.0.0 --baseURL http://localhost:1313 --disableFastRender",
-    "build": "git submodule update --init --recursive && hugo --gc --minify",
+    "build": "git submodule update --init --recursive && hugo --gc --minify && node scripts/build-admin.mjs",
+    "build:admin": "node scripts/build-admin.mjs",
     "build:hugo": "hugo --gc --minify",
     "serve": "git submodule update --init --recursive && hugo server --bind 0.0.0.0 --baseURL http://localhost:1313 --disableFastRender"
   },
