@@ -1,44 +1,78 @@
 [[main]]
   name = "首页"
-  pageRef = "/"
+  identifier = "home"
+  url = "/"
   weight = 10
+  [main.params]
+    icon = "home"
 
 [[main]]
   name = "文章"
-  pageRef = "posts"
+  identifier = "posts"
+  url = "/posts/"
   weight = 20
+  [main.params]
+    icon = "archives"
+
+[[main]]
+  name = "归档"
+  identifier = "archives"
+  url = "/archives/"
+  weight = 30
+  [main.params]
+    icon = "clock"
 
 [[main]]
   name = "分类"
-  pageRef = "categories"
-  weight = 30
+  identifier = "categories"
+  url = "/categories/"
+  weight = 40
+  [main.params]
+    icon = "categories"
 
 [[main]]
   name = "标签"
-  pageRef = "tags"
-  weight = 40
+  identifier = "tags"
+  url = "/tags/"
+  weight = 50
+  [main.params]
+    icon = "tag"
 
 [[main]]
   name = "专题"
-  pageRef = "series"
-  weight = 50
+  identifier = "series"
+  url = "/series/"
+  weight = 60
+  [main.params]
+    icon = "hash"
+
+[[main]]
+  name = "搜索"
+  identifier = "search"
+  url = "/search/"
+  weight = 70
+  [main.params]
+    icon = "search"
 
 [[main]]
   name = "关于"
-  pageRef = "pages/about"
-  weight = 60
+  identifier = "about"
+  url = "/pages/about/"
+  weight = 80
+  [main.params]
+    icon = "user"
 
-[[footer]]
-  name = "文章"
-  pageRef = "posts"
+[[social]]
+  name = "GitHub"
+  url = "https://github.com/wangzheivan"
   weight = 10
+  [social.params]
+    icon = "brand-github"
+    newTab = true
 
-[[footer]]
-  name = "分类"
-  pageRef = "categories"
+[[social]]
+  name = "RSS"
+  url = "/index.xml"
   weight = 20
-
-[[footer]]
-  name = "标签"
-  pageRef = "tags"
-  weight = 30
+  [social.params]
+    icon = "rss"

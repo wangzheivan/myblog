@@ -1,87 +1,86 @@
-colorScheme = "github"
-defaultAppearance = "dark"
-autoSwitchAppearance = true
-
-enableA11y = true
-enableSearch = true
-enableCodeCopy = true
-enableStructuredBreadcrumbs = true
-
+description = "专注 Linux、云原生、AI 与工程实践的中文技术博客。"
 mainSections = ["posts"]
-defaultFeaturedImage = "/images/tech-cover.svg"
-defaultSocialImage = "/images/tech-cover.svg"
-disableImageOptimization = false
-disableImageOptimizationMD = false
-hotlinkFeatureImage = false
-thumbnailAspectRatio = "1.777"
-
-fingerprintAlgorithm = "sha512"
-
-[header]
-  layout = "fixed"
+rssFullContent = true
+favicon = "/favicon-32x32.png"
+SortBy = "default"
 
 [footer]
-  showMenu = true
-  showCopyright = true
-  showThemeAttribution = true
-  showAppearanceSwitcher = true
-  showScrollToTop = true
+  since = 2026
+  customText = ""
 
-[homepage]
-  layout = "profile"
-  showRecent = true
-  showRecentItems = 6
-  showMoreLink = true
-  showMoreLinkDest = "/posts/"
-  cardView = false
-  cardViewScreenWidth = false
+[dateFormat]
+  published = "2006-01-02"
+  lastUpdated = "2006-01-02 15:04"
+
+[sidebar]
+  compact = false
+  avatar = "mylogo.png"
+  subtitle = "Linux · Cloud Native · AI"
 
 [article]
-  showDate = true
-  showDateUpdated = true
-  showAuthor = true
-  showHero = false
-  showBreadcrumbs = true
-  showDraftLabel = true
-  showEdit = false
-  seriesOpened = true
-  showHeadingAnchors = true
-  showPagination = true
-  invertPagination = false
-  showReadingTime = true
-  showTableOfContents = true
-  showRelatedContent = true
-  relatedContentLimit = 3
-  showTaxonomies = true
-  showCategories = true
-  showTags = true
-  showWordCount = true
-  showZenMode = true
-  sharingLinks = ["email", "telegram"]
+  headingAnchor = true
+  math = false
+  toc = true
+  readingTime = true
 
-[list]
-  showHero = false
-  showBreadcrumbs = true
-  showSummary = false
-  showTableOfContents = false
-  showCards = false
-  groupByYear = true
-  cardView = false
-  cardViewScreenWidth = false
-  constrainItemsWidth = false
+  [article.list]
+    showTags = true
 
-[taxonomy]
-  showTermCount = true
-  showHero = false
-  showBreadcrumbs = true
+  [article.license]
+    enabled = false
+    default = "Licensed under CC BY-NC-SA 4.0"
 
-[term]
-  showHero = false
-  showBreadcrumbs = true
-  showTableOfContents = false
-  groupByYear = false
-  cardView = true
-  cardViewScreenWidth = false
+  [article.mermaid]
+    look = "classic"
+    lightTheme = "default"
+    darkTheme = "dark"
+    securityLevel = "strict"
+    htmlLabels = true
+    transparentBackground = false
 
-[sitemap]
-  excludedKinds = ["taxonomy", "term"]
+[widgets]
+  [[widgets.homepage]]
+    type = "search"
+
+  [[widgets.homepage]]
+    type = "archives"
+    [widgets.homepage.params]
+      limit = 5
+
+  [[widgets.homepage]]
+    type = "categories"
+    [widgets.homepage.params]
+      limit = 10
+
+  [[widgets.homepage]]
+    type = "tag-cloud"
+    [widgets.homepage.params]
+      limit = 20
+
+  [[widgets.page]]
+    type = "toc"
+
+[opengraph.twitter]
+  site = ""
+  card = "summary_large_image"
+
+[colorScheme]
+  toggle = true
+  default = "auto"
+
+[imageProcessing]
+  autoOrient = false
+
+  [imageProcessing.external]
+    timeout = "5s"
+
+  [imageProcessing.content]
+    widths = [800, 1600, 2400]
+    enabled = true
+
+  [imageProcessing.thumbnail]
+    enabled = true
+
+[comments]
+  enabled = false
+  provider = "giscus"

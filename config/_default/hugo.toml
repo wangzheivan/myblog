@@ -1,8 +1,8 @@
 baseURL = "https://blog.ivanwz.com/"
-languageCode = "zh-CN"
+locale = "zh-CN"
 defaultContentLanguage = "zh-cn"
 title = "云原生技术栈"
-theme = "blowfish"
+theme = "hugo-theme-stack"
 
 enableRobotsTXT = true
 enableGitInfo = false
@@ -22,7 +22,7 @@ enableEmoji = true
   posts = "/posts/:sections/:slug/"
 
 [outputs]
-  home = ["HTML", "RSS", "JSON"]
+  home = ["HTML", "RSS"]
   section = ["HTML", "RSS"]
   taxonomy = ["HTML", "RSS"]
   term = ["HTML", "RSS"]

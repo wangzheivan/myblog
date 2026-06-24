@@ -1,9 +1,9 @@
 public/
 resources/_gen/
 .hugo_build.lock
+assets/jsconfig.json
 node_modules/
 .pagefind/
 .cache/
 .DS_Store
 Thumbs.db
-worker/.dev.vars
