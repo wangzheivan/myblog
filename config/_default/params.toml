@@ -1,4 +1,4 @@
-description = "专注 Linux、云原生、AI 与工程实践的中文技术博客。"
+description = "关注Linux、云原生、AI的中文技术博客。"
 mainSections = ["posts"]
 rssFullContent = true
 favicon = "/favicon-32x32.png"
@@ -66,7 +66,7 @@ SortBy = "default"
 
 [colorScheme]
   toggle = true
-  default = "auto"
+  default = "dark"
 
 [imageProcessing]
   autoOrient = false

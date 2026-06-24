@@ -2,12 +2,13 @@
 title: "pod状态解析"
 date: 2026-06-22
 lastmod: 2026-06-22
-description: ""
-slug: "pod"
-categories: []
+description: "关于 Kubernetes 中 `Evicted`、`Failed`、`CrashLoopBackOff` 和 `Error` 四种 Pod 状态的详细对比说明"
+slug: "pod-status"
+categories: ["Kubernetes"]
 tags: ["k8s", "pod"]
 draft: false
 author: "Ivan"
+toc: true
 ---
 以下是关于 Kubernetes 中 `Evicted`、`Failed`、`CrashLoopBackOff` 和 `Error` 四种 Pod 状态的详细对比说明：
 

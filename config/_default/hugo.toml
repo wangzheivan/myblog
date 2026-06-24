@@ -1,7 +1,7 @@
 baseURL = "https://blog.ivanwz.com/"
 locale = "zh-CN"
 defaultContentLanguage = "zh-cn"
-title = "云原生技术栈"
+title = "Ivan的技术文档"
 theme = "hugo-theme-stack"
 
 enableRobotsTXT = true
