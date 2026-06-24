@@ -60,6 +60,7 @@ graph TD
 ```
 
 #### 2. CrashLoopBackOff 退避算法
+
 ```python
 # 伪代码：指数退避重启
 delay = 10  # 初始延迟（秒）
@@ -88,22 +89,23 @@ while pod_in_crashloop:
 1. **Evicted**  
    - 设置节点自动缩放（Cluster Autoscaler）
    - 定期清理脚本（每日执行）
-   ```bash
+
+ ```bash
    kubectl get pods -A -o jsonpath='{range .items[?(@.status.reason=="Evicted")]}{.metadata.name}{"\n"}{end}' | xargs -I{} kubectl delete pod {} --ignore-not-found
-   ```
+```
 
 2. **CrashLoopBackOff**  
    - 诊断命令：
-   ```bash
+```bash
    kubectl describe pod <pod-name> | grep -A 10 "Events:"
    kubectl logs <pod-name> --previous  # 查看上次崩溃日志
-   ```
+```
 
 3. **Failed/Error**  
    - 检查容器退出码：
-   ```bash
+```bash
    kubectl get pod <pod-name> -o jsonpath='{.status.containerStatuses[].state.terminated.exitCode}'
-   ```
+```
    - 常见退出码：
      - `0`：成功退出
      - `1`：应用错误
@@ -112,7 +114,7 @@ while pod_in_crashloop:
 
 4. **全局自动清理方案**  
    使用 `ttlSecondsAfterFinished` (仅限 Job) 或第三方控制器：
-   ```yaml
+```yaml
    apiVersion: batch/v1
    kind: Job
    metadata:
@@ -122,7 +124,7 @@ while pod_in_crashloop:
      template:
        spec:
          containers: [...]
-   ```
+```
 
 ---
 
@@ -134,14 +136,14 @@ while pod_in_crashloop:
    - `Error` = 启动阶段致命错误
 
 2. **K8s 自动清理规则**：  
-   ```mermaid
+```mermaid
    graph LR
        A[Pod状态] --> B{是否有控制器}
        B -->|无控制器| C[永不清理]
-       B -->|有控制器| D{控制器类型}
+        B -->|有控制器| D{控制器类型}
        D -->|Job| E[达到 backoffLimit 后清理]
        D -->|其他| F[保留旧Pod<br>仅创建新副本]
-   ```
+```
 
 3. **生产环境建议**：  
    - 为所有工作负载配置控制器（Deployment/StatefulSet/Job）
