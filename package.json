@@ -8,9 +8,14 @@
     "build": "git submodule update --init --recursive && hugo --gc --minify && node scripts/build-admin.mjs",
     "build:admin": "node scripts/build-admin.mjs",
     "build:hugo": "hugo --gc --minify",
-    "serve": "git submodule update --init --recursive && hugo server --bind 0.0.0.0 --baseURL http://localhost:1313 --disableFastRender"
+    "serve": "git submodule update --init --recursive && hugo server --bind 0.0.0.0 --baseURL http://localhost:1313 --disableFastRender",
+    "deploy": "wrangler deploy",
+    "preview": "wrangler dev"
   },
   "engines": {
     "node": ">=20"
+  },
+  "devDependencies": {
+    "wrangler": "^4.103.0"
   }
 }
