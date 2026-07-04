@@ -10,6 +10,6 @@ series: ""
 draft: true
 featured: false
 cover: "/images/tech-cover.svg"
-author: "站点作者"
+author: "Ivan"
 ---
 

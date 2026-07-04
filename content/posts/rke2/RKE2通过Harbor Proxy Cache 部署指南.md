@@ -4,13 +4,13 @@ date: 2026-06-19
 lastmod: 2026-06-19
 description: "RKE2通过Harbor Proxy Cache 部署指南"
 slug: "rke2-install-with-harborProxy"
-categories: ["rke2"]
+categories: ["RKE2"]
 tags: ["rke2", "部署"]
 series: ""
 draft: false
 featured: false
 cover: "/images/tech-cover.svg"
-author: "ivan"
+author: "Ivan"
 ---
 
 

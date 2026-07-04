@@ -4,13 +4,13 @@ date: 2026-06-19
 lastmod: 2026-06-20
 description: "测试环境方便通过脚本一键安装prime和primegc版本Rancher"
 slug: "rancher-install-shell"
-categories: ["rancher"]
+categories: ["Rancher"]
 tags: ["rancher", "脚本", "自动化"]
 series: ""
 draft: false
 featured: false
 cover: "/images/tech-cover.svg"
-author: "ivan"
+author: "Ivan"
 ---
 
 

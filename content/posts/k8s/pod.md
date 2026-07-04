@@ -8,6 +8,9 @@ categories: ["Kubernetes"]
 tags: ["k8s", "pod"]
 draft: false
 author: "Ivan"
+featured: false
+series: ""
+cover: "/images/tech-cover.svg"
 toc: true
 ---
 以下是关于 Kubernetes 中 `Evicted`、`Failed`、`CrashLoopBackOff` 和 `Error` 四种 Pod 状态的详细对比说明：

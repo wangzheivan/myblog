@@ -10,7 +10,7 @@ series: ""
 draft: false
 featured: false
 cover: "/images/tech-cover.svg"
-author: "ivan"
+author: "Ivan"
 ---
 
 

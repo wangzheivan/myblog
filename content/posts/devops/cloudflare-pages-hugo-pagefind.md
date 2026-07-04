@@ -10,7 +10,7 @@ series: "博客工程化"
 draft: false
 featured: false
 cover: "/images/tech-cover.svg"
-author: "站点作者"
+author: "Ivan"
 ---
 
 静态博客的运维成本很低，适合个人技术博客。Hugo 负责生成页面，Pagefind 负责生成本地搜索索引，Cloudflare Pages 负责自动构建和分发。

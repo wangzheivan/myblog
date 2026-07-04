@@ -4,13 +4,13 @@ date: 2026-06-18
 lastmod: 2026-06-19
 description: "用 Deployment、Service、ConfigMap 和 Ingress 串起 Kubernetes 应用发布的基本路径。"
 slug: "kubernetes-workload-overview"
-categories: ["云原生"]
+categories: ["Cloud Native"]
 tags: ["Kubernetes", "容器", "云原生"]
 series: "Kubernetes 入门到实践"
 draft: false
 featured: true
 cover: "/images/tech-cover.svg"
-author: "站点作者"
+author: "Ivan"
 ---
 
 Kubernetes 的对象很多，但初学时可以先把应用发布理解成几个核心对象之间的协作。

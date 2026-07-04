@@ -4,13 +4,13 @@ date: 2026-06-19
 lastmod: 2026-06-19
 description: "测试环境方便通过脚本一键安装rke2集群"
 slug: "rke2-install-shell"
-categories: ["rke2"]
+categories: ["RKE2"]
 tags: ["rke2", "脚本", "自动化"]
 series: ""
 draft: false
 featured: false
 cover: "/images/tech-cover.svg"
-author: "ivan"
+author: "Ivan"
 ---
 
 ## 文档说明

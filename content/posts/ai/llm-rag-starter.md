@@ -10,7 +10,7 @@ series: "AI 工程化"
 draft: false
 featured: true
 cover: "/images/tech-cover.svg"
-author: "站点作者"
+author: "Ivan"
 ---
 
 RAG 是把外部知识接入大模型的常见方式。它并不神秘，本质上是一条从文档到答案的工程链路。

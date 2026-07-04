@@ -10,7 +10,7 @@ series: "Linux 运维基础"
 draft: false
 featured: true
 cover: "/images/tech-cover.svg"
-author: "站点作者"
+author: "Ivan"
 ---
 
 Linux 故障排查的第一步不是立刻修改配置，而是先建立足够清晰的观察面。CPU、内存、磁盘和网络通常能解释大多数系统层面的异常。
