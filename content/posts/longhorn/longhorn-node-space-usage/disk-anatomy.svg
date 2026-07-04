@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 470" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif">
+  <rect x="0" y="0" width="800" height="470" rx="12" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="30" y="38" font-size="17" font-weight="600" fill="#111827">单块磁盘：容量构成与两种进度条（node22 实测）</text>
+
+  <!-- 1. 容量构成 -->
+  <text x="30" y="76" font-size="13" font-weight="600" fill="#374151">① 磁盘容量构成（Storage Maximum = 144.26 Gi）</text>
+  <rect x="60" y="86" width="476" height="34" fill="#0d9488"/>
+  <rect x="536" y="86" width="204" height="34" fill="#9ca3af"/>
+  <text x="298" y="108" font-size="13" font-weight="600" fill="#ffffff" text-anchor="middle">Size（可用）101 Gi</text>
+  <text x="638" y="108" font-size="12" fill="#ffffff" text-anchor="middle">Reserved 43.3 Gi</text>
+  <text x="60" y="138" font-size="12" fill="#6b7280">Size = Storage Maximum − Reserved；Reserved 43.3/144.26 ≈ 30%（默认盘预留比例）</text>
+
+  <!-- 2. Allocated -->
+  <text x="30" y="176" font-size="13" font-weight="600" fill="#374151">② Allocated（逻辑调度量）：30 / 100.98 Gi</text>
+  <rect x="60" y="186" width="680" height="34" fill="#eff6ff" stroke="#bfdbfe"/>
+  <rect x="60" y="186" width="202" height="34" fill="#2563eb"/>
+  <text x="161" y="208" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">已调度 30 Gi</text>
+  <text x="732" y="208" font-size="12" fill="#1e3a8a" text-anchor="end">上限 100.98 Gi</text>
+  <text x="60" y="238" font-size="12" fill="#6b7280">条底 = Allocated Max = Size × 超配比 = 101 × 100% ≈ 100.98 Gi（本集群超配=100%）。只算 replica 逻辑大小，不是真实占用。</text>
+
+  <!-- 3. Used -->
+  <text x="30" y="276" font-size="13" font-weight="600" fill="#374151">③ Used（真实占用）：23.75 / 144.26 Gi</text>
+  <rect x="60" y="286" width="680" height="34" fill="#fff7ed" stroke="#fed7aa"/>
+  <rect x="60" y="286" width="112" height="34" fill="#ea580c"/>
+  <text x="116" y="308" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">已用 23.75</text>
+  <text x="732" y="308" font-size="12" fill="#9a3412" text-anchor="end">总容量 144.26 Gi</text>
+  <text x="60" y="338" font-size="12" fill="#6b7280">条底 = Storage Maximum（144.26 Gi）。含 replica 数据、snapshot、系统文件等；Available = 144.26 − 23.75 = 120.51 Gi。</text>
+
+  <!-- 关键对比 -->
+  <rect x="30" y="360" width="740" height="86" rx="8" fill="#f9fafb" stroke="#e5e7eb"/>
+  <text x="46" y="386" font-size="13" font-weight="600" fill="#111827">关键区别</text>
+  <text x="46" y="410" font-size="12" fill="#374151">• Allocated 的“满”看的是 <tspan font-weight="600" fill="#2563eb">Size × 超配比</tspan>（逻辑承诺），条底与磁盘物理容量无关。</text>
+  <text x="46" y="432" font-size="12" fill="#374151">• Used 的“满”看的是 <tspan font-weight="600" fill="#ea580c">Storage Maximum</tspan>（真实字节），两条进度条分母不同，别混着看。</text>
+</svg>
