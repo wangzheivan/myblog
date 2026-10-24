@@ -1,11 +1,11 @@
 ---
-title: "Rancher Monitoring + Alertmanager + Mailpit 邮件告警测试实战"
+title: "Rancher Monitoring+ Mailpit邮件告警测试实战"
 date: 2026-10-24
 lastmod: 2026-10-24
 description: "使用 Rancher Monitoring、PrometheusRule、AlertmanagerConfig 和 Mailpit 验证 Kubernetes 邮件告警链路，涵盖中文 HTML 邮件、FIRING 与 RESOLVED 通知及常见问题排查。"
 slug: "rancher-monitoring-mailpit-alert-test"
 categories: ["monitor"]
-tags: ["Prometheus", "Alertmanager", "Rancher Monitoring", "Mailpit", "Kubernetes"]
+tags: ["Prometheus", "Alertmanager", "Rancher Monitoring", "Kubernetes"]
 series: ""
 draft: false
 featured: false
@@ -13,9 +13,6 @@ cover: "/images/tech-cover.svg"
 author: "Ivan"
 ---
 
-> 文档版本：v1.0（初稿）  
-> 测试日期：2026-10-24  
-> 测试结论：**通过**。已在 Mailpit 中确认收到 `MailpitDeploymentUnavailable` 的 FIRING 告警及自定义中文 HTML 邮件；截图还显示多条 RESOLVED 通知。本文根据本次操作整理，个别选择器参数仍应以实际集群 YAML 为准。
 
 ## 1. 测试目标与环境
 
@@ -23,7 +20,7 @@ author: "Ivan"
 
 ```text
 测试 Deployment 异常
-  → kube-state-metrics 采集工作负载指标
+  → 采集工作负载指标
   → PrometheusRule 产生 FIRING 告警
   → AlertmanagerConfig 路由到邮件 Receiver
   → Mailpit SMTP 接收邮件
@@ -58,20 +55,13 @@ author: "Ivan"
 在内网服务器 `192.168.50.41` 上执行：
 
 ```bash
-docker run -d \
-  --restart unless-stopped \
-  --name=mailpit \
-  -p 8025:8025 \
-  -p 1025:1025 \
-  axllent/mailpit
+docker run -d --restart unless-stopped --name=mailpit -p 8025:8025 -p 1025:1025 axllent/mailpit
 ```
 
 说明：
 
 | 参数 | 作用 |
 |---|---|
-| `-d` | 后台运行容器 |
-| `--restart unless-stopped` | Docker/主机重启后自动恢复运行，手工停止的情况除外 |
 | `--name=mailpit` | 指定容器名称 |
 | `-p 8025:8025` | 映射 Web UI 端口 |
 | `-p 1025:1025` | 映射 SMTP 端口 |
@@ -90,7 +80,7 @@ docker logs --tail 50 mailpit
 
 ## 3. 配置 AlertmanagerConfig
 
-### 3.1 为什么使用 AlertmanagerConfig
+### 3.1 AlertmanagerConfig相关说明
 
 `AlertmanagerConfig` 同时定义：
 
@@ -121,14 +111,14 @@ docker logs --tail 50 mailpit
 | Grouping / `groupBy` | `alertname` | 同一告警名称的多个实例分在一组 |
 | Group Wait / `groupWait` | `5s` | 新告警组首次发送前等待 5 秒 |
 | Group Interval / `groupInterval` | `30s` | 已存在告警组发生变化后的通知检查间隔 |
-| Repeat Interval / `repeatInterval` | `10m` | 告警持续不恢复时，正常情况下每约 10 分钟再次提醒 |
+| Repeat Interval / `repeatInterval` | `5m` | 告警持续不恢复时，正常情况下每约 10 分钟再次提醒 |
 | Matchers | 本次未配置 | 匹配本 AlertmanagerConfig 可处理范围内的所有告警 |
 
 **Grouping 与 Matchers 不同**：Grouping 负责“如何合并通知”；Matchers 负责“哪些告警可以进入路由”。
 
 **命名空间注意事项**：Prometheus Operator 默认采用 `OnNamespace` 策略，通常会将某个 AlertmanagerConfig 的路由限制到同命名空间的告警。因此本次把 AlertmanagerConfig 放在 `alert-mail-test`，与测试告警的 `namespace` 标签一致。如果你的集群自定义了匹配策略，应以实际生效配置为准。
 
-**重复发送时间**：`repeatInterval: 10m` 不表示绝对定时每整 10 分钟发一封。Alertmanager 在 `groupInterval` 的检查点判断是否需要重复通知，且静默、抑制、路由变化等都会影响结果。正式生产环境建议按告警等级设置不同重复间隔。
+**重复发送时间**：`repeatInterval: 5m` 不表示绝对定时每整 5分钟发一封。Alertmanager 在 `groupInterval` 的检查点判断是否需要重复通知，且静默、抑制、路由变化等都会影响结果。正式生产环境建议按告警等级设置不同重复间隔。
 
 ### 3.4 完整 AlertmanagerConfig 示例（含中文邮件模板）
 
@@ -183,7 +173,7 @@ spec:
       - alertname
     groupWait: 5s
     groupInterval: 30s
-    repeatInterval: 10m
+    repeatInterval: 5m
 ```
 
 应用：
