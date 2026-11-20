@@ -6,16 +6,18 @@ author: Ivan
 draft: false
 categories:
   - Kubernetes
+  - tool
 tags:
   - 脚本
   - Kubernetes
+  - tool
 series: ""
 date: 2026-11-20T09:00:10.094Z
-cover: /images/tech-cover.svg
-image: /images/tech-cover.svg
-lastmod: 2026-11-20T09:06:48.676Z
+cover: "/images/tech-cover.svg"
+image: "/images/tech-cover.svg"
+lastmod: 2026-11-20T09:11:41.576Z
 ---
-# Kubernetes 跨节点网络排障实践：使用 Swiss Army Knife 构建 test-tool 工具集
+
 
 > 本文介绍如何基于 Rancher Swiss Army Knife 镜像，部署一组覆盖 Kubernetes 节点的排障 Pod，并使用 Shell 脚本检查跨节点 Pod 连通性、HTTP 访问、DNS 解析及 Kubernetes API Service 连通性。文末附上**完整 YAML 和 Shell 脚本**，可直接复制保存使用。
 >
