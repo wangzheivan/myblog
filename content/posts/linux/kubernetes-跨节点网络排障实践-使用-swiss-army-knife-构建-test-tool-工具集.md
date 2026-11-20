@@ -3,7 +3,7 @@ title: k8s跨节点网络排障：使用 Swiss Army Knife 构建 test-tool 工�
 slug: test-tool
 description: Kubernetes 跨节点网络排障实践：使用 Swiss Army Knife 构建 test-tool 工具集
 author: Ivan
-draft: true
+draft: false
 categories:
   - Kubernetes
 tags:
@@ -13,7 +13,7 @@ series: ""
 date: 2026-11-20T09:00:10.094Z
 cover: /images/tech-cover.svg
 image: /images/tech-cover.svg
-lastmod: 2026-11-20T09:02:40.841Z
+lastmod: 2026-11-20T09:06:48.676Z
 ---
 # Kubernetes 跨节点网络排障实践：使用 Swiss Army Knife 构建 test-tool 工具集
 
